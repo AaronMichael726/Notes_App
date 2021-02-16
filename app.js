@@ -1,71 +1,7 @@
-// // imports
-// const fs = require('fs')
-// const add = require('./utils.js')
-
-// // two args place to write to and text to write -- notice the file doesn't have to exist.
-// // Js will create the file useing the fs lib
-// // when call twice will rewrite the text in the file
-// // fs.writeFileSync('notes.txt', 'My name is Aaron')
-
-// // Challenge: Append a message to notes.txt
-// //
-// // 1. Use appendFileSync to append to the file
-// // 2. Run the script
-// // 3. Check your work by opening the file and viewing the append text
-// // fs.appendFileSync('notes.txt', ' Aaron Hernandez is rewriting the file')
-
-// // cannot access variable from utils.js
-// let sum = add(2, 3)
-// console.log(sum)
-
-
-/**
- * Challenge 2: Define and use a function in a new file
- * 1. create a new file notes.js
- * 2. create a getNotes function that returns "Your notes..."
- * 3. Export getNOtes function
- * 4. From index.js, load in and call the function printing message to console
- */
-
-// const getNotes = require('./notes.js')
-
-// let yourNotes = getNotes()
-
-// console.log(yourNotes)
-
-// const validator = require('validator')
-// const getNotes = require('./notes')
-
-// console.log(validator.isEmail('aaronexample.com'))
-// console.log(validator.isURL('https'))
-
-/**Challenge 3: Chalk
- * npm i chalk - let's up style text with node
- * 
- * 1. Install version 2.4.1 of chalk
- * 2. load chalk into app.js
- * 3. Use it to print the string 'success!' to the console. in green
- * 4. test your work
- * 
- * Bonus: use the docs to mess around with other styles. Make the text bold and inversed.
- */
-
- // import chalk
+ // import chalk, yargs, getNotes files
 const chalk = require('chalk')
 const yargs = require('yargs')
-
-// console.log(chalk.green('Success!'))
-// console.log(chalk.blue.bgRed.bold('hello'))
-
-// console.log(process.argv)
-// console.log(yargs.argv)
-// const command = process.argv[2]
-
-// if (command === 'add') {
-//     console.log('adding note!')
-// } else if (command === 'remove'){
-//     console.log('Romiving note!')
-// }
+const notes = require('./notes.js')
 
 // customer yargs version
 yargs.version('1.1.0')
@@ -75,8 +11,67 @@ yargs.version('1.1.0')
 // create command
 yargs.command({
     command: 'add',
-    description: 'Add a new notes',
-    handler: function() {
-        console.log('addiing a new note')
+    describe: 'Add a new notes',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'Note Body',
+            demandOption: true,
+            type: 'string'
+        } 
+    },
+    handler: function(argv) {
+        notes.addNote(argv.title, argv.body)
     }
 })
+
+// create remove command
+yargs.command({
+    command: 'remove',
+    describe: 'revmove a note',
+    handler: function() {
+        console.log('Removing this note')
+    }
+})
+
+/**
+ * Challenge 3: Add two new commands
+ * 1. setup command to support "list" command (print placeholder message for now)
+ * 2. setup command to support "read" command (print placeholder message for now)
+ * 3. Test your work by running both commands and ensure correct output
+ */
+
+yargs.command({
+    command: 'list',
+    describe: 'list the note',
+    handler: function() {
+        console.log('listing all notes')
+    }
+})
+
+yargs.command({
+    command: 'read',
+    describe: 'Read a note',
+    handler: function() {
+        console.log('Reading the note')
+    }
+})
+
+yargs.parse()
+
+
+/** 
+ * Challenge: add an option to yargs
+ * 
+ * 1. setup a body option for the add command 
+ * 2. configure a description, make it required, and for it to be a string
+ * 3. Log the body value in the handler function 
+ * 4. Test!
+ * 
+ */
+
+ 
