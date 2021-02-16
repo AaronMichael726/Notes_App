@@ -38,7 +38,14 @@ const loadNotes = function() {
     }
 }
 
+const removeNote = function(title){
+    const notes = loadNotes()
+
+    console.log(title)
+}
+
 module.exports = {
     getNotes,
     addNote,
+    removeNote
 }   
