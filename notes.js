@@ -2,10 +2,6 @@ const { notStrictEqual } = require('assert')
 const fs = require('fs')
 const chalk = require('chalk')
 
-const getNotes = () => {
-    return 'your notes... '
-}
-
 const addNote = (title, body) => {
     const notes = loadNotes()
     // const duplicateNotes = notes.filter((note) => note.title === title) // note is the index value'
@@ -75,7 +71,6 @@ const loadNotes = () => {
 
 
 module.exports = { //written with es6 functionality
-    getNotes,
     addNote,
     removeNote,
     listNotes,
