@@ -46,7 +46,7 @@ const removeNote = function(title){
         return note.title !== title
     }) 
 
-    if (notesToKeep.length === notes.length){
+    if (notesToKeep.length === notes.length){ // question: is there an instance where a note is removed and notes.length == notesToKeep.length
         console.log(chalk.bgRed('Note not found!'))
     } else {    
         saveNotes(notesToKeep)
