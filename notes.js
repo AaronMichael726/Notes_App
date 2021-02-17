@@ -30,8 +30,7 @@ const removeNote = function(title){
     } else {    
         saveNotes(notesToKeep)
         console.log(chalk.black.bgGreen('Note removed'))
-    }
-    
+    }   
 }
 
 const listNotes = () => {
@@ -42,6 +41,20 @@ const listNotes = () => {
         console.log(i.title)
         console.log(i.body)
     })
+}
+
+const readNote = (title) => {
+    const notes = loadNotes()
+
+    const singleNote = notes.filter((i) => i.title === title)
+
+
+    if (singleNote.length === 0) { 
+        console.log(chalk.red.inverse('No Note Found')) 
+    } else {
+        console.log(chalk.black.inverse(singleNote[0].title))
+        console.log(singleNote[0].body)
+    }
 }
 
 const saveNotes = (note) => {
@@ -61,9 +74,10 @@ const loadNotes = () => {
 
 
 
-module.exports = {
+module.exports = { //written with es6 functionality
     getNotes,
     addNote,
     removeNote,
-    listNotes
+    listNotes,
+    readNote
 }   
