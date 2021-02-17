@@ -2,17 +2,14 @@ const { notStrictEqual } = require('assert')
 const fs = require('fs')
 const chalk = require('chalk')
 
-const getNotes = function () {
+const getNotes = () => {
     return 'your notes... '
 }
 
-const addNote = function(title, body) {
+const addNote = (title, body) => {
     const notes = loadNotes()
 
-    // look through to confirm there aren't any duplicates
-    const duplicateNotes = notes.filter(function (note) {
-        return note.title === title
-    }) 
+    const duplicateNotes = notes.filter((note) => note.title === title)
 
     if (duplicateNotes.length === 0) {
         notes.push({
@@ -24,12 +21,12 @@ const addNote = function(title, body) {
     } else { console.log('note taken')}
 }
 
-const saveNotes = function(note) {
+const saveNotes = (note) => {
     const dataJSON = JSON.stringify(note)
     fs.writeFileSync('notes.json', dataJSON)
 }
 
-const loadNotes = function() {
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJSON = dataBuffer.toString()
@@ -42,9 +39,7 @@ const loadNotes = function() {
 const removeNote = function(title){
     const notes = loadNotes()
 
-    const notesToKeep = notes.filter(function (note) {
-        return note.title !== title
-    }) 
+    const notesToKeep = notes.filter((note) =>  note.title !== title)
 
     if (notesToKeep.length === notes.length){ // question: is there an instance where a note is removed and notes.length == notesToKeep.length
         console.log(chalk.bgRed('Note not found!'))
