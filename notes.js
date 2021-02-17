@@ -1,5 +1,6 @@
 const { notStrictEqual } = require('assert')
 const fs = require('fs')
+const chalk = require('chalk')
 
 const getNotes = function () {
     return 'your notes... '
@@ -24,7 +25,7 @@ const addNote = function(title, body) {
 }
 
 const saveNotes = function(note) {
-    const dataJSON = JSON.stringify(note) 
+    const dataJSON = JSON.stringify(note)
     fs.writeFileSync('notes.json', dataJSON)
 }
 
@@ -41,7 +42,17 @@ const loadNotes = function() {
 const removeNote = function(title){
     const notes = loadNotes()
 
-    console.log(title)
+    const notesToKeep = notes.filter(function (note) {
+        return note.title !== title
+    }) 
+
+    if (notesToKeep.length === notes.length){
+        console.log(chalk.bgRed('Note not found!'))
+    } else {    
+        saveNotes(notesToKeep)
+        console.log(chalk.black.bgGreen('Note removed'))
+    }
+    
 }
 
 module.exports = {

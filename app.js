@@ -85,3 +85,17 @@ yargs.parse()
   * 5. Test your work using: node app.js remove --title="some title"
   */
 
+/**
+ * Challenge: Wire up removeNote
+ * 1. Load existing notes
+ * 2. use array filter method to remove the matching note (if any) 
+ * 3. Save the newly created array
+ * 4. Test your work with a title that exists and a title that doesn't exist
+ */
+
+/**
+ * Challenge: Use chalk to provide useful logs for remove 
+ * 
+ * 1. If a note is removed, print"note removed!" with a green background
+ * 2. If no note is removed, print "No note found" with a red backgroud
+ */
