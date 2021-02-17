@@ -8,10 +8,9 @@ const getNotes = () => {
 
 const addNote = (title, body) => {
     const notes = loadNotes()
-
-    const duplicateNotes = notes.filter((note) => note.title === title)
-
-    if (duplicateNotes.length === 0) {
+    // const duplicateNotes = notes.filter((note) => note.title === title) // note is the index value'
+    const duplicateNote = notes.find((note) => note.title === title) // stops at first duplicate where note is the index value
+    if (!duplicateNote) {
         notes.push({
             title,
             body, 
@@ -19,6 +18,30 @@ const addNote = (title, body) => {
     
         saveNotes(notes)
     } else { console.log('note taken')}
+}
+
+const removeNote = function(title){
+    const notes = loadNotes()
+
+    const notesToKeep = notes.filter((note) =>  note.title !== title)
+
+    if (notesToKeep.length === notes.length){ // question: is there an instance where a note is removed and notes.length == notesToKeep.length
+        console.log(chalk.bgRed('Note not found!'))
+    } else {    
+        saveNotes(notesToKeep)
+        console.log(chalk.black.bgGreen('Note removed'))
+    }
+    
+}
+
+const listNotes = () => {
+    const notes = loadNotes()
+
+    console.log(chalk.blue.inverse('Your Notes: '))
+    notes.forEach((i) => {  // where the param is an index value similar to i
+        console.log(i.title)
+        console.log(i.body)
+    })
 }
 
 const saveNotes = (note) => {
@@ -36,22 +59,11 @@ const loadNotes = () => {
     }
 }
 
-const removeNote = function(title){
-    const notes = loadNotes()
 
-    const notesToKeep = notes.filter((note) =>  note.title !== title)
-
-    if (notesToKeep.length === notes.length){ // question: is there an instance where a note is removed and notes.length == notesToKeep.length
-        console.log(chalk.bgRed('Note not found!'))
-    } else {    
-        saveNotes(notesToKeep)
-        console.log(chalk.black.bgGreen('Note removed'))
-    }
-    
-}
 
 module.exports = {
     getNotes,
     addNote,
-    removeNote
+    removeNote,
+    listNotes
 }   

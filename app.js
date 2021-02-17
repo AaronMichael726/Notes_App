@@ -50,7 +50,7 @@ yargs.command({
     command: 'list',
     describe: 'list the note',
     handler() {
-        console.log('listing all notes')
+        notes.listNotes()
     }
 })
 
@@ -94,8 +94,19 @@ yargs.parse()
  */
 
 /**
+ 
  * Challenge: Use chalk to provide useful logs for remove 
  * 
  * 1. If a note is removed, print"note removed!" with a green background
  * 2. If no note is removed, print "No note found" with a red backgroud
+ */
+
+/** 
+ * Challenge: wire up list command
+ * 
+ * 1. create and export listNotes from notes.js
+ *      - "your notes" using chalk 
+ *      - "print note title for each note
+ * 2. Call listNotes from command handler
+ * 3. Test 
  */
